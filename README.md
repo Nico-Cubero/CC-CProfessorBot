@@ -62,4 +62,4 @@ En el siguiente diagrama, se representa esta arquitectura de microservicios.
 
 #### Documentación web del proyecto
 
-La documentación sobre este proyecto, también se irá recogiendo en la siguiente dirección web: ![Documentación oficial del Proyecto](https://nico-cubero.github.io/CC-CProfessorBot/)
+La documentación sobre este proyecto, también se irá recogiendo en la siguiente dirección web: [Documentación oficial del Proyecto](https://nico-cubero.github.io/CC-CProfessorBot/)
