@@ -2,8 +2,6 @@
 
 Para el establecimiento y configuración del entorno requerido, se llevaron a cabo el siguiente proceso:
 
-**Nota: La ejecución de este procedimiento se apli**
-
 1. **Instalación del programa git**: Se instala el programa *git* desde la **línea de comandos** introduciendo el siguiente comando: `sudo apt-get install git`.
 
 2. **Creación del par de claves y subida de la clave pública a Github**: Desde la línea de comandos, se ejecuta el comando `ssh-keygen -t rsa -C "cubetor97@gmail.com"` para la creación del par de un par de claves usando el algoritmo *rsa*.
