@@ -55,3 +55,7 @@ Se plantea inicialmente la conexión de este microservicio con un tipo de base d
 - Gestión de tareas del sistema: Se encargará de registrar y ordenar la ejecución de tareas programadas como resultado de alguna petición de alguno de sus usuarios (por ejemplo, envío de notificaciones programadas por el profesorado al alumnado en una fecha y hora determinadas). Para tal objetivo, deberá de gestionar una cola de tareas. Este microservicio requerirá comunicación con el microservicio "Gestión de información estática" para almacenar y recuperar toda la información que requiere, además de comunicación con el microservicio "Registro de eventos" para registrar toda su actividad en los registros de bitácora.
 
 - Registro de eventos: Se ocupa de registrar todos los eventos y acciones llevadas a cabo como consecuencia del funcionamiento del sistema en un almacén *log*, este microservicio recibirá mensajes provenientes de todos los microservicios con información de los eventos y acciones desarrolladas. Este microservicio consituye el único microservicio que no actúa de cliente de ningún otro microservicio para desarrollar su funcionalidad.
+
+En el siguiente diagrama, se representa esta arquitectura de microservicios.
+
+![Arquitectura del sistema C-ProfessorBot](docs/imgs/arquitectura-CC-CProfessorBot.png)
