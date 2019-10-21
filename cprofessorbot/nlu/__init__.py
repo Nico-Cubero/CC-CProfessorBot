@@ -1,0 +1,9 @@
+# Importar todas las clases del módulo nlu
+from cprofessorbot.nlu.speechHandler import SpeechHandler
+from cprofessorbot.nlu.naturalLanguageProcessing_utils import processRequest
+from cprofessorbot.nlu.naturalLanguageProcessing_utils import preprocessTokenizeText
+from cprofessorbot.nlu.naturalLanguageProcessing_utils import parseSpeechDate
+from cprofessorbot.nlu.naturalLanguageProcessing_utils import parseSpeechTime
+from cprofessorbot.nlu.naturalLanguageProcessing_utils import replaceSpeechNumber
+from cprofessorbot.nlu.naturalLanguageProcessing_utils import compare_words
+from cprofessorbot.nlu.question_parser import QuestionParser

@@ -1,0 +1,9 @@
+# Importar todas las clases del módulo cprofessorbot
+from cprofessorbot.utils.HTMLTelegramFormatter import HTMLTelegramFormatter
+from cprofessorbot.utils.conversationCompiler import ConversationCompiler
+from cprofessorbot.utils.enteringGroupHandler import EnteringGroupHandler
+from cprofessorbot.utils.lefteringGroupHandler import LefteringGroupHandler
+from cprofessorbot.utils.memberEnteringGroupHandler import MemberEnteringGroupHandler
+from cprofessorbot.utils.memberLefteringGroupHandler import MemberLefteringGroupHandler
+from cprofessorbot.utils import emojis
+from cprofessorbot.utils.utils import copyFile, percentile, removeDirectory

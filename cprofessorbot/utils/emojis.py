@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+###############################################################################
+# Descripción: Módulo que contiene los códigos Unicode de los emojis utilizados
+#				en el servidor de C-ProfessorBot
+# Autor: Nicolás Cubero Torres
+###############################################################################
+
+CARA_SONRIENTE = '\U0001F601'
+CARA_FELIZ = '\U0001F602'
+CARA_ALEGRE = '\U0001F603'
+CARA_GUINO = '\U0001F609'
+CARA_SUSTO = '\U0001F628'
+CARA_GRITO_SUSTO = '\U0001F631'
+CARA_GOTA = '\U0001F613'
+CARA_ENFADO = '\U0001F621'
+CARA_SUFRIMIENTO = '\U0001F62B'
+MANO_OK = '\U0001F44C'
+MANO_ADIOS = '\U0001F44B'
+MULTIPLICACION = '\U00002716'
+CHECK = '\U00002714'
+LIBRO_ABIERTO = '\U0001F4D6'
+EQUIS_ROJA = '\U0000274C'
+MEGAFONO = '\U0001F4E2'
+FLECHA_DER_IZQ = '\U000021A9'
+HOMBRE_SALUDANDO = '\U0001F64B'
+MUJER_SALUDANDO = '\U0001F64B'
+MEMORIA_PAPEL = '\U0001F4C4'
+BOMBA = '\U0001F4A3'
+PROFESOR = '\U0001F468'
+PROFESORA = '\U0001F469'
+ENLACE = '\U0001F517'
+LLAVE_INGLESA = '\U0001F527'
+CANDADO_CERRADO = '\U0001F512'
+CANDADO_ABIERTO = '\U0001F513'
