@@ -59,3 +59,7 @@ Se plantea inicialmente la conexión de este microservicio con un tipo de base d
 En el siguiente diagrama, se representa esta arquitectura de microservicios.
 
 ![Arquitectura del sistema C-ProfessorBot](docs/imgs/arquitectura-CC-CProfessorBot.png)
+
+#### Documentación web del proyecto
+
+La documentación sobre este proyecto, también se irá recogiendo en la siguiente dirección web: ![Documentación oficial del Proyecto](https://nico-cubero.github.io/CC-CProfessorBot/)
