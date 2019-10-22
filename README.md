@@ -30,35 +30,54 @@ Por su parte, CProfessorBot constituye un asistente conversacional, chatbot o si
 
 Se desea implementar este sistema servidor en una arquitectura basada en **microservicios** conectados entre sí. Existe cierta correspondencia entre la descomposición funcional anteriormente expuesta y los microservicios que se desarrollan a continuación.
 
+#####	Microservicios a desarrollar
+
 Se consideran los siguientes microservicios:
 
 - Gestión de comunicaciones Telegram: Implementa toda la funcionalidad del módulo de comunicación, actuando como mediador entre sistema y los usuarios de la plataforma Telegram. Hace uso de la API ![Telegram Bot Telegram](https://core.telegram.org/bots/api) para interconectar con la interfaz del bot, de la cual recoje todas las peticiones de los usuarios y a la cual emite todas las respuestas generadas por el sistema.
 
 Este microservicio se comunicará con el resto de microservicios para llevar a cabo el procesamiento de todas las peticiones recibidas.
 
-- Procesamiento del lenguaje natural: Implementa el módulo de procesamiento del lenguaje natural. Realiza diferentes tareas de procesamiento del lenguaje natural a petición del microservicio de comuncaciones y devuelve el resultado. Este microservicio actúa únicamente como servidor del resto de microservicios y únicamente se comunicará con el microservicio "Registro de eventos" para registrar información sobre su actividad en los almacenes de bitácora.
+- Procesamiento del lenguaje natural: Implementa el módulo de procesamiento del lenguaje natural. Realiza diferentes tareas de procesamiento del lenguaje natural a petición del microservicio de comuncaciones y devuelve el resultado.
 
 - Gestión de información estática: Implementa parte de la funcionalidad del módulo de gestión de la información y se ocupa de gestionar la información a almacenar por el sistema de naturaleza estática (información sobre los usuarios (alumnos y profesores) registrados, información sobre los foros docentes y de los usuarios registrados en los mismos, información sobre las asignaturas, los profesores encargados de su docencia, el alumnado matriculado en las mismas, configuración establecida etc).
 
 Este microservicio se hallará conectado a una base de datos de tipo relacional que permite modelar y gestionar información de esta naturaleza de forma más adecuada proveyendo mecanismos aprovechables para garantizar la integridad de la información y una rápida capacidad de respuesta en los procesos de recuperación de la información.
 
-Este microservicio actúa únicamente como interfaz de acceso a la base de datos para el resto de microservicios y se comunicará únicamente con el microservicio "Registro de eventos" para registrar su actividad.
-
 - Gestión de información dinámica: Se ocupa de gestionar y almacenar información de naturaleza dinámica y cambiante que es creada y desruída de forma masiva en cortos periodos de tiempo, lo que imposibilita su almacenamiento estructurado (registro de mensajes enviados o recibidos por el sistema con toda su información textual o multimedia y cualquier otra información recopilada sobre el uso del sistema por parte de sus usuarios).
 
-Este microservicio se conectará a otra base de datos que se adapte a la naturaleza de esta información. Se optará por algún tipo de base de datos NoSQL de tipo documental, de la misma forma que el anterior, este microservicio actúa únicamente como interfaz de acceso a la base de datos para el resto de microservicios, comunicándose con el microservicio "Registro de eventos" para registrar su actividad.
+Este microservicio se conectará a otra base de datos que se adapte a la naturaleza de esta información. Se optará por algún tipo de base de datos NoSQL de tipo documental.
 
 - Gestión de la información docente: Se encarga de gestionar y almacenar la información teórica empleada por el sistema para atender a las consultas teóricas del alumnado y para evaluar la temática de los mensajes recibidos por el mismo. Para este fin, deberá de implementar los mecanismos necesarios tanto para realizar búsquedas inteligentes de la información teórica almacenada, como para acceder de forma rápida a esta información, para lo que se requerirá en ambos casos que la información esté adecuadamente estructurada e indexada.
 
-Se plantea inicialmente la conexión de este microservicio con un tipo de base de datos relacional que haga un uso intenso de indexación de contenidos. Este microservicio también constituye una interfaz de acceso a esta base de información para el resto de microservicios y se comunica, igualmente, con el microservicio "Registro de eventos" para registrar su actividad.
+Se plantea inicialmente la conexión de este microservicio con un tipo de base de datos relacional que haga un uso intenso de indexación de contenidos.
 
-- Gestión de tareas del sistema: Se encargará de registrar y ordenar la ejecución de tareas programadas como resultado de alguna petición de alguno de sus usuarios (por ejemplo, envío de notificaciones programadas por el profesorado al alumnado en una fecha y hora determinadas). Para tal objetivo, deberá de gestionar una cola de tareas. Este microservicio requerirá comunicación con el microservicio "Gestión de información estática" para almacenar y recuperar toda la información que requiere, además de comunicación con el microservicio "Registro de eventos" para registrar toda su actividad en los registros de bitácora.
+- Gestión de tareas del sistema: Se encargará de registrar y ordenar la ejecución de tareas programadas como resultado de alguna petición de alguno de sus usuarios (por ejemplo, envío de notificaciones programadas por el profesorado al alumnado en una fecha y hora determinadas), para tal objetivo, deberá de gestionar una cola de tareas. Este microservicio requerirá comunicación con el microservicio "Gestión de información estática" para almacenar y recuperar toda la información que requiere.
 
-- Registro de eventos: Se ocupa de registrar todos los eventos y acciones llevadas a cabo como consecuencia del funcionamiento del sistema en un almacén *log*, este microservicio recibirá mensajes provenientes de todos los microservicios con información de los eventos y acciones desarrolladas. Este microservicio consituye el único microservicio que no actúa de cliente de ningún otro microservicio para desarrollar su funcionalidad.
+- Configuración remota: Se ocupará de recoger la configuración establecida en un repositorio de GitHub y aplicar dicha configuración sobre el resto de microservicios.
 
-En el siguiente diagrama, se representa esta arquitectura de microservicios.
+- Centralizador de *log*: Se ocupa de centralizar el registro de los eventos y acciones llevadas a cabo como consecuencia del funcionamiento del sistema y permitir la consulta de esta información por medio de un servicio web.
+
+En el siguiente diagrama, se representa esta arquitectura de microservicios. Se ha de aclarar que la comunicación entre los microservicios se efectúa mediante el protocolo *AMQP*.
 
 ![Arquitectura del sistema C-ProfessorBot](docs/imgs/arquitectura-CC-CProfessorBot.png)
+
+#####	Tecnologías usadas
+
+Se plantea usar el lenguaje Python en la implementación de todos los microservicios haciendo uso del *framework* Flask.
+
+Python constituye una buena opción al existir numerosas herramientas y tecnologías muy aprovechables para la construcción y depliegue de microservicios y también porque facilitaría la reutilización de los módulos software implementados en el sistema original que también se hallan implementados en Python.
+
+Se optaría por el uso de comunicación asíncrona entre los microservicios mediante el paso mensajes usando el protocolo AMQP, lo cual permitiría una comunicación rápida entre los microservicios. Para este, fin RabbitMQ constituye una herramienta muy aprovechable para la implementación de los *brokers* de cada servicio.
+
+Cada microservicio implementará una cola de mensajes propias haciendo uso *Celery*.
+
+Para las bases de datos relacionales, se plantea la construcción de una base de datos basada en SQL, haciendo uso de MySQL, mientras que para la base de datos documental, se plantea el uso de MongoDB.
+
+Para implementar una integración continua, se plantea usar la herramienta *Jenkins* para automatizar el despliegue de las modificaciones de código llevadas a cabo. Se plantea también el uso de esta herramienta para automatizar los procesos de pruebas antes de su despliegue.
+
+Por último, para la implementación del microservicio "Centralizador de *log*,"  se plantea el uso de la herramienta *graylog*, mientras que para habilitar configuración remota, se plantea el uso de *Spring Boot Config*, constituyendo este el único microservicio que hace uso de una tecnología de Java.
+
 
 #### Documentación web del proyecto
 
