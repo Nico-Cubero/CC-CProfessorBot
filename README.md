@@ -1,13 +1,13 @@
 #	C-ProfessorBot
 ##	Proyecto de la asignatura Cloud Computing Fundamentos y estructura
 
-Proyecto llevado a cabo en la asignatura **Cloud Computing. Fundamentos y estructura** del **Máster de Ingeniería Informática** en la Universidad de Granada consistente en la aplicación de herramientas y metodologías de **Cloud Computing** para el despliegue de una ampliación sobre el sistema servidor **CProfessorBot** desarrollado como Trabajo de Fin de Grado en la Universidad de Córdoba durante el curso 18/19, el cual puede ser consultado en el siguiente ![link](https://github.com/Nico-Cubero/C-ProfessorBot)
+Proyecto llevado a cabo en la asignatura **Cloud Computing. Fundamentos y estructura** del **Máster de Ingeniería Informática** en la Universidad de Granada consistente en la aplicación de herramientas y metodologías de **Cloud Computing** para el despliegue de una ampliación sobre el sistema servidor **CProfessorBot** desarrollado como Trabajo de Fin de Grado en la Universidad de Córdoba durante el curso 18/19, el cual puede ser consultado en el siguiente [link](https://github.com/Nico-Cubero/C-ProfessorBot)
 
 ####	Descripción del Proyecto
 
 El proyecto pretende ampliar las características del sistema CProfessorBot, en el cual, el procesamiento de todas las peticiones de todos sus usuarios recaía en un único sistema servidor monolítico *multithreading*.
 
-Esta ampliación, pretende reestructurar la arquitectura del servidor a una arquitectura Cloud Computing, de forma que se permita desplegar de forma independiente cada uno de los módulos funcionales del sistema original en los diferentes microservicios con el objetivo de aumentar las capacidades del sistema:
+Esta ampliación, pretende reestructurar la arquitectura del servidor a una arquitectura Cloud Computing, para desplegar de forma independiente cada uno de los módulos funcionales del sistema original y permitir el incremento de las capacidades del sistema:
 
 - Aumento de la disponibilidad del sistema: Se espera que esta arquitectura permita extender el uso del sistema a un mayor número de usuarios y a un mayor número de asignaturas (la implementación actual únicamente soporta una única asignatura por servidor).
 
@@ -28,21 +28,21 @@ Por su parte, CProfessorBot constituye un asistente conversacional, chatbot o si
 
 ####	Descripción de la Arquitectura
 
-Se desea implementar este sistema servidor en una arquitectura basada en **microservicios** conectados entre sí. Existe cierta correspondencia entre la descomposición funcional anteriormente expuesta y los microservicios que se desarrollan a continuación.
+Se desea implementar este sistema servidor en una arquitectura basada en **microservicios** conectados entre sí. Se ha de resaltar que existe cierta correspondencia entre la descomposición funcional anteriormente expuesta y los microservicios que se desarrollan a continuación.
 
 #####	Microservicios a desarrollar
 
 Se consideran los siguientes microservicios:
 
-- Gestión de comunicaciones Telegram: Implementa toda la funcionalidad del módulo de comunicación, actuando como mediador entre sistema y los usuarios de la plataforma Telegram. Hace uso de la API ![Telegram Bot Telegram](https://core.telegram.org/bots/api) para interconectar con la interfaz del bot, de la cual recoje todas las peticiones de los usuarios y a la cual emite todas las respuestas generadas por el sistema.
+- Gestión de comunicaciones Telegram: Implementa toda la funcionalidad del módulo de comunicación, actuando como mediador entre sistema y los usuarios de la plataforma Telegram. Hace uso de la API [Telegram Bot Telegram](https://core.telegram.org/bots/api) para interconectar con la interfaz del bot, de la cual recoje todas las peticiones de los usuarios y a la cual emite todas las respuestas generadas por el sistema.
 
 Este microservicio se comunicará con el resto de microservicios para llevar a cabo el procesamiento de todas las peticiones recibidas.
 
-- Procesamiento del lenguaje natural: Implementa el módulo de procesamiento del lenguaje natural. Realiza diferentes tareas de procesamiento del lenguaje natural a petición del microservicio de comuncaciones y devuelve el resultado.
+- Procesamiento del lenguaje natural: Implementa el módulo de procesamiento del lenguaje natural. Realiza diferentes tareas de procesamiento del lenguaje natural a petición del microservicio de comunicaciones y devuelve el resultado.
 
-- Gestión de información estática: Implementa parte de la funcionalidad del módulo de gestión de la información y se ocupa de gestionar la información a almacenar por el sistema de naturaleza estática (información sobre los usuarios (alumnos y profesores) registrados, información sobre los foros docentes y de los usuarios registrados en los mismos, información sobre las asignaturas, los profesores encargados de su docencia, el alumnado matriculado en las mismas, configuración establecida etc).
+- Gestión de información estática: Implementa parte de la funcionalidad del módulo de gestión de la información y se ocupa de gestionar y almacenar la información de naturaleza estática (información sobre los usuarios (alumnos y profesores) registrados, información sobre los foros docentes y de los usuarios registrados en los mismos, información sobre las asignaturas, los profesores encargados de su docencia, el alumnado matriculado en las mismas, configuración establecida etc).
 
-Este microservicio se hallará conectado a una base de datos de tipo relacional que permite modelar y gestionar información de esta naturaleza de forma más adecuada proveyendo mecanismos aprovechables para garantizar la integridad de la información y una rápida capacidad de respuesta en los procesos de recuperación de la información.
+Este microservicio se hallará conectado a una base de datos de tipo relacional que permite modelar y gestionar información de esta naturaleza de forma más adecuada, proveyendo mecanismos aprovechables para garantizar la integridad de la información y una rápida capacidad de respuesta en los procesos de recuperación de la información.
 
 - Gestión de información dinámica: Se ocupa de gestionar y almacenar información de naturaleza dinámica y cambiante que es creada y desruída de forma masiva en cortos periodos de tiempo, lo que imposibilita su almacenamiento estructurado (registro de mensajes enviados o recibidos por el sistema con toda su información textual o multimedia y cualquier otra información recopilada sobre el uso del sistema por parte de sus usuarios).
 
@@ -66,9 +66,9 @@ En el siguiente diagrama, se representa esta arquitectura de microservicios. Se 
 
 Se plantea usar el lenguaje Python en la implementación de todos los microservicios haciendo uso del *framework* Flask.
 
-Python constituye una buena opción al existir numerosas herramientas y tecnologías muy aprovechables para la construcción y depliegue de microservicios y también porque facilitaría la reutilización de los módulos software implementados en el sistema original que también se hallan implementados en Python.
+Python constituye una buena opción al existir numerosas herramientas y tecnologías muy aprovechables para la construcción y depliegue de microservicios y también porque facilitaría la reutilización de los módulos software implementados en el sistema original que también se hallan implementados en este lenguaje.
 
-Se optaría por el uso de comunicación asíncrona entre los microservicios mediante el paso mensajes usando el protocolo AMQP, lo cual permitiría una comunicación rápida entre los microservicios. Para este, fin RabbitMQ constituye una herramienta muy aprovechable para la implementación de los *brokers* de cada servicio.
+Se optaría por el uso de comunicación asíncrona entre los microservicios mediante el paso mensajes usando el protocolo AMQP, como se ha indicado antes, lo cual permitiría una comunicación rápida entre los microservicios. Para este, fin RabbitMQ constituye una herramienta muy aprovechable para la implementación de los *brokers* de cada servicio.
 
 Cada microservicio implementará una cola de mensajes propias haciendo uso *Celery*.
 
